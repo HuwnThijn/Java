@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout">
+<head>
+    <title>Danh Sách Nhân Viên</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+<section layout:fragment="content" class="container mt-5">
+    <h1>Danh Sách Nhân Viên</h1>
+        <a th:href="@{/nhan-vien/add}" class="btn btn-primary">Add
+            New NhanVien</a>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Mã NV</th>
+            <th>Tên NV</th>
+            <th>Phái</th>
+            <th>Nơi Sinh</th>
+            <th>Phòng Ban</th>
+            <th>Lương</th>
+            <th>Actions</th> <!-- New column for actions -->
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="nhanVien : ${nhanVien}">
+            <td th:text="${nhanVien.maNV}">Mã NV</td>
+            <td th:text="${nhanVien.tenNV}">Tên NV</td>
+            <td>
+                <img th:if="${nhanVien.phai == 'NAM'}" th:src="@{/image/nam.png}" alt="Nam" width="50" height="50"/>
+                <img th:if="${nhanVien.phai == 'NU'}" th:src="@{/image/nu.png}" alt="Nữ" width="50" height="50"/>            <td th:text="${nhanVien.noiSinh}">Nơi Sinh</td>
+            <td th:text="${nhanVien.phongBan.tenPhong}">Phòng Ban</td>
+            <td th:text="${nhanVien.luong}">Lương</td>
+            <td>
+                <a th:href="@{/nhan-vien/update/{id}(id=${nhanVien.maNV})}" class="btn btn-primary btn-sm"><i class="bi bi-pencil-square"></i> Edit</a>
+                <a th:href="@{/nhan-vien/delete/{id}(id=${nhanVien.maNV})}" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i> Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</section>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
